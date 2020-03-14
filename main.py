@@ -32,6 +32,7 @@ class SGD:
             self.weights = self.weights - update
         return y_est
 
+    # type = 1: Stochastic gradient Descent, type = 2: Stochastic gradient Descent with momentum, type = 3: Nostorov gradient Descent
     def fit(self):
         loss_prev = 100
         for iter in range(self.num_iters):

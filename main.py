@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from sklearn.datasets import load_iris
 
 
@@ -13,8 +12,7 @@ class SGD:
         self.momentum = momentum
 
     def loss(self):
-        loss = np.sum((self.x @ self.weights - self.y) ** 2) / (self.y.size)
-        return loss
+        return np.sum((self.x @ self.weights - self.y) ** 2) / self.y.size
 
     def gradientDescent(self, type):
         m = self.y.size
@@ -30,7 +28,6 @@ class SGD:
             else:
                 update = self.LR * grad + self.momentum * update
             self.weights = self.weights - update
-        return y_est
 
     # type = 1: Stochastic gradient Descent, type = 2: Stochastic gradient Descent with momentum, type = 3: Nostorov gradient Descent
     def fit(self):
@@ -40,12 +37,10 @@ class SGD:
             loss = self.loss()
             if loss_prev - loss < 1e-20:
                 print(f'Loss:{loss}, number of iterations:{iter}')
-                print(self.weights)
                 break
             loss_prev = loss
             if iter % 10 == 0:
                 print(f'Loss:{loss}, number of iterations:{iter}')
-                print(self.weights)
 
 
 if __name__ == '__main__':
@@ -55,4 +50,4 @@ if __name__ == '__main__':
     weights = np.random.rand(x.shape[1])
     sgd = SGD(x, y, weights, LR=0.01, num_iters=100, momentum=0.99)
     sgd.fit()
-    print('Finish')
+
